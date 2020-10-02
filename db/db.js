@@ -1,7 +1,7 @@
 const fs = require("fs");
 const util = require("util");
 
-// const uuidv1 = require("uuid/v1");
+const uuidv1 = require("uuidv1");
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -33,10 +33,9 @@ class Db {
         if (!title || !text) {
           throw new Error("Note 'title' and 'text' cannot be blank");
         }
-        // Add a unique id to the note using uuid package
-        // const newNote = { title, text, id: uuidv1() };
-        const newNote = { title, text };
-        // Get all notes, add the new note, write all the updated notes, return the newNote
+        // Give unique id to note
+        const newNote = { title, text, id: uuidv1() };
+        // return the new note and write it to the page
         return this.getNotes()
           .then((notes) => [...notes, newNote])
           .then((updatedNotes) => this.write(updatedNotes))

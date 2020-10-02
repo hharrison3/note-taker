@@ -14,25 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// Example Note (DATA)
-// =============================================================
-var notes = [
-    {
-    title:"Test Title",
-    text:"Test text"
-    }
-];
-
 // Routes
 // =============================================================
 
 // Basic route that sends the user first to the AJAX Page
-app.get("/notes", function(req, res) {
+app.get("/notes", function(_req, res) {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 }); 
 
-app.get("/api/notes", function(req, res) {
-  //res.sendFile(path.join(__dirname, "./db/db.json"));
+app.get("/api/notes", function(_req, res) {
   Db.getNotes().then((notes) => {
     res.json(notes);
   }).catch((err) => {
@@ -40,7 +30,7 @@ app.get("/api/notes", function(req, res) {
   })
 });
 
-app.get("*", function(req, res) {
+app.get("*", function(_req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 }); 
 
@@ -50,8 +40,11 @@ app.post("/api/notes", function(req, res) {
     res.json(note);
   });
 });
-
-
+// Delete Notes
+app.delete('/api/notes/:id', function (req, res) {
+  res.send('Got a DELETE request at /user');
+  Db.deleteNote(req.params.id)
+})
 
 
 
