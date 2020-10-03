@@ -17,7 +17,7 @@ app.use(express.static("public"));
 // Routes
 // =============================================================
 
-// Basic route that sends the user first to the AJAX Page
+// GET Routes
 app.get("/notes", function(_req, res) {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 }); 
@@ -34,21 +34,17 @@ app.get("*", function(_req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 }); 
 
-// Create New Notes - takes in JSON input
+// POST Route - Create New Notes
 app.post("/api/notes", function(req, res) {
   Db.addNote(req.body).then((note) => {
     res.json(note);
   });
 });
-// Delete Notes
+// DELETE Route - Delete Notes
 app.delete('/api/notes/:id', function (req, res) {
   res.send('Got a DELETE request at /user');
   Db.deleteNote(req.params.id)
 })
-
-
-
-
 
 // Starts the server to begin listening
 // =============================================================
