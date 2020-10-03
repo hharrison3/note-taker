@@ -17,5 +17,3 @@ What to know about using the repo: To run the application, you must have node in
 # Questions:
 If you have any questions about the repo, open an issue or contact
 me directly at harb3gaucho@gmail.com. You can find more of my work at my GitHub: hharrison3.
-
-[Heroku Guide](../04-Supplemental/HerokuGuide.md) for getting your app deployed on Heroku.
